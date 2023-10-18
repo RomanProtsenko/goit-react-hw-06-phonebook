@@ -1,55 +1,19 @@
-import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Section } from './Section/Section';
-import { Filter } from './Filter/Filter';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { addContact, deleteContact, updateFilter } from '../redux/contacts/contacts-slice';
-import { nanoid } from '@reduxjs/toolkit';
+import { Box, Title, Subtitle } from './App.styled';
+import Form from './Form/Form';
+import Contacts from './Contacts/Contacts';
+import Filter from './Filter/Filter';
 
-export const App = () => {
-  const contacts = useSelector(state => state.contacts.contacts);
-  const [duplicateContactMessage, setDuplicateContactMessage] = useState('');
-  const filter = useSelector(state => state.contacts.filter);
-  const dispatch = useDispatch();
-
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  const addContactHandler = ({ name, number }) => {
-  const existingContact = contacts.find(contact => contact.name.toLowerCase() === name.toLowerCase());
-
-  if (existingContact) {
-    setDuplicateContactMessage(`${name} is already in contacts`);
-    return;
-  }
-
-  dispatch(addContact({ id: nanoid(), name, number }));
-  setDuplicateContactMessage(''); 
-};
-
-  const filterChangeHandler = e => {
-  
-    dispatch(updateFilter(e.target.value));
-  };
-
-  const onDelete = contactId => {
-  
-    dispatch(deleteContact(contactId));
-  };
-
+const App = () => {
   return (
-    <>
-      <Section title="Phonebook">
-        <ContactForm onSubmit={addContactHandler} />
-        {duplicateContactMessage && alert(`${duplicateContactMessage}`)}
-      </Section>
+    <Box>
+      <Title>Phonebook</Title>
+      <Form />
 
-      <Section title="Contacts">
-        <Filter filter={filter} handleChange={filterChangeHandler} />
-        <ContactList contacts={filteredContacts} onDelete={onDelete} />
-      </Section>
-    </>
+      <Subtitle>Contacts</Subtitle>
+      <Filter></Filter>
+      <Contacts />
+    </Box>
   );
 };
+
+export default App;
