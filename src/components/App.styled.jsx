@@ -1,27 +1,28 @@
 import styled from '@emotion/styled';
 
-const Item = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 16px;
+const Box = styled.div`
+  margin-left: 32px;
+  margin-top: 32px;
+  padding: 32px;
+
+  width: 380px;
+
+  border: 1px black dashed;
+  border-radius: 16px;
 `;
 
-const Button = styled.button`
-  padding: 8px 16px;
-  margin-left: auto;
+const Title = styled.h1`
+  margin-bottom: 24px;
 
-  color: black;
-  background-color: transparent;
-  border-radius: 8px;
-  border: 1px solid black;
-
-  transition: color 250ms ease-out, background-color 250ms ease-out;
-
-  &:hover,
-  &:focus {
-    color: white;
-    background-color: black;
-  }
+  font-size: 36px;
+  line-height: 40px;
 `;
 
-export { Item, Button };
+const Subtitle = styled.h2`
+  margin-bottom: 24px;
+
+  font-size: 32px;
+  line-height: 36px;
+`;
+
+export { Box, Title, Subtitle };

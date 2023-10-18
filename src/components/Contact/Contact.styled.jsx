@@ -1,37 +1,27 @@
-import { useSelector, useDispatch } from 'react-redux';
+import styled from '@emotion/styled';
 
-import { List } from './Contacts.styled';
-import { Contact } from '../Contact/Contact';
-import { deleteContact } from 'redux/contactsSlice';
-import { getContacts, getFilter } from 'redux/selectors';
+const Item = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
 
-const Contacts = () => {
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+const Button = styled.button`
+  padding: 8px 16px;
+  margin-left: auto;
 
-  const filteredContacts = Object.values(contacts).filter(({ name }) =>
-    name.toLowerCase().includes(filter)
-  );
+  color: black;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid black;
 
-  return (
-    <>
-      <List>
-        {filteredContacts.length !== 0 ? (
-          filteredContacts.map(({ id, name, number }) => (
-            <Contact
-              key={id}
-              name={name}
-              number={number}
-              onClick={() => dispatch(deleteContact({ id }))}
-            ></Contact>
-          ))
-        ) : (
-          <p>There are no contacts :(</p>
-        )}
-      </List>
-    </>
-  );
-};
+  transition: color 250ms ease-out, background-color 250ms ease-out;
 
-export default Contacts;
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: black;
+  }
+`;
+
+export { Item, Button };
